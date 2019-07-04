@@ -4,5 +4,9 @@
 }
 
 #displayButtons {
-    margin: 1% 0;
+    margin: 1% 0;;
+}
+
+button{
+    margin: 1%;
 }
