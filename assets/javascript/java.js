@@ -1,4 +1,4 @@
-var gifArray = ["cat"];
+var gifArray = ["cat", "dog", "fish", "monkey"];
 
 renderButtons();
 
@@ -48,20 +48,43 @@ $(document).on("click", "button", function () {
             var results = response.data;
 
             for (var i = 0; i < results.length; i++) {
+
+//                 <div class="card" style="width: 18rem;">
+//                     <img src="..." class="card-img-top" alt="...">
+//                         <div class="card-body">
+//                             <h5 class="card-title">Card title</h5>
+//                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//                             <a href="#" class="btn btn-primary">Go somewhere</a>
+//                         </div>
+//                 </div>
                 var gifDiv = $("<div>");
+                gifDiv.addClass("card w-75");
 
                 var rating = results[i].rating;
 
-                var p = $("<p>").text("Rating: " + rating);
+                var p = $("<h5>").text("Rating: " + rating);
 
                 var gifImage = $("<img>");
                 gifImage.addClass("gif");
-                gifImage.attr("src", results[i].images.fixed_height_still.url);
-                gifImage.attr("data-still", results[i].images.fixed_height_still.url);
-                gifImage.attr("data-animate", results[i].images.fixed_height.url);
+                gifImage.attr("src", results[i].images.fixed_width_still.url);
+                gifImage.attr("data-still", results[i].images.fixed_width_still.url);
+                gifImage.attr("data-animate", results[i].images.fixed_width.url);
                 gifImage.attr("data-state", "still");
 
+                var imageBody = $("<div>");
+                imageBody.addClass("card-body");
+
+                var imageTitle = $("<h4>");
+                
+                var title = results[i].title.split(" GIF");
+                imageTitle.html(title[0]);
+                
+                var imageDetail = $("<div>");
+                imageDetail.addClass("imageDetail");
+                imageDetail.append(imageTitle);
+                // gifDiv.prepend(imageBody);
                 gifDiv.prepend(p);
+                gifDiv.prepend(imageDetail);
                 gifDiv.prepend(gifImage);
 
                 $("#displayGifs").prepend(gifDiv);
@@ -69,17 +92,17 @@ $(document).on("click", "button", function () {
         });
 });
 
-$(document).on("click", ".gif", function(){
+$(document).on("click", ".gif", function () {
 
     var state = $(this).attr("data-state");
 
     if (state === "still") {
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
-      } else if (state === "animate") {
+    } else if (state === "animate") {
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
-      } else {
+    } else {
         console.log("Oops");
-      }
+    }
 });
