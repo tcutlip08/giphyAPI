@@ -31,9 +31,7 @@ $("#addGif").on("click", function (event) {
     $("#gifInput").val("");
 });
 
-// <button class="btn btn-secondary gif" data-name="cat">cat</button>
-// <button class="btn btn-secondary gif" data-name="cat">cat</button>
-$(document).on("click", "button", function () {
+$(document).on("click", ".gifButton", function () {
     var gif = $(this).attr("data-name");
     console.log(gif);
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -49,16 +47,16 @@ $(document).on("click", "button", function () {
 
             for (var i = 0; i < results.length; i++) {
 
-//                 <div class="card" style="width: 18rem;">
-//                     <img src="..." class="card-img-top" alt="...">
-//                         <div class="card-body">
-//                             <h5 class="card-title">Card title</h5>
-//                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//                             <a href="#" class="btn btn-primary">Go somewhere</a>
-//                         </div>
-//                 </div>
+                //                 <div class="card" style="width: 18rem;">
+                //                     <img src="..." class="card-img-top" alt="...">
+                //                         <div class="card-body">
+                //                             <h5 class="card-title">Card title</h5>
+                //                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                //                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                //                         </div>
+                //                 </div>
                 var gifDiv = $("<div>");
-                gifDiv.addClass("card w-75");
+                gifDiv.addClass("card w-75 text-center");
 
                 var rating = results[i].rating;
 
@@ -71,18 +69,18 @@ $(document).on("click", "button", function () {
                 gifImage.attr("data-animate", results[i].images.fixed_width.url);
                 gifImage.attr("data-state", "still");
 
-                var imageBody = $("<div>");
-                imageBody.addClass("card-body");
-
                 var imageTitle = $("<h4>");
-                
                 var title = results[i].title.split(" GIF");
-                imageTitle.html(title[0]);
-                
+                imageTitle.html(title[0].toUpperCase());
+
                 var imageDetail = $("<div>");
                 imageDetail.addClass("imageDetail");
                 imageDetail.append(imageTitle);
-                // gifDiv.prepend(imageBody);
+
+                var favButton = $("<button>");
+                favButton.addClass("btn btn-primary").attr("id", "favBtn").text("✩Favorites");
+
+                gifDiv.prepend(favButton);
                 gifDiv.prepend(p);
                 gifDiv.prepend(imageDetail);
                 gifDiv.prepend(gifImage);
@@ -90,6 +88,31 @@ $(document).on("click", "button", function () {
                 $("#displayGifs").prepend(gifDiv);
             }
         });
+});
+
+$(document).on("click", "#favBtn", function () {
+    console.log($(this).attr("id"));
+
+    $(this).attr("class", "btn btn-success").html("Gif Saved");
+
+    setTimeout(function () {
+        console.log($(this));
+        $(this).attr("class", "btn btn-danger").attr("id", "remFavBtn").html("&times;Remove");
+    }, 500);
+
+});
+
+// function returnRedButton() {
+//     window.setTimeout(function () {
+//         var array = ["btn btn-danger", "remFavBtn", "&times;Remove"]
+//         // $(this).attr("class", "btn btn-danger").attr("id", "remFavBtn").html("&times;Remove");
+//         return array;
+//     }, 500);
+// }
+
+$(document).on("click", "#remFavBtn", function () {
+    console.log($(this).attr("id"));
+    $(this).attr("class", "btn btn-primary").attr("id", "favBtn").html("✩Favorites");
 });
 
 $(document).on("click", ".gif", function () {
