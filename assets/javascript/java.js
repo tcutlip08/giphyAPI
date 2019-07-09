@@ -68,9 +68,11 @@ $(document).on("click", ".gifButton", function () {
                 gifImage.attr("data-still", results[i].images.fixed_width_still.url);
                 gifImage.attr("data-animate", results[i].images.fixed_width.url);
                 gifImage.attr("data-state", "still");
+                gifImage.attr("style", "padding: 10px");
 
                 var imageTitle = $("<h4>");
-                var title = results[i].title.split(" GIF");
+                imageTitle.addClass("gifTitle");
+                var title = (results[i].title.split(" GIF"));
                 imageTitle.html(title[0].toUpperCase());
 
                 var imageDetail = $("<div>");
@@ -91,13 +93,13 @@ $(document).on("click", ".gifButton", function () {
 });
 
 $(document).on("click", "#favBtn", function () {
-    console.log($(this).attr("id"));
 
     $(this).attr("class", "btn btn-success").html("Gif Saved");
 
+    // $(this, ".gifTitle").prepend('<span id="favSymbol">✩</span>');
+
     setTimeout(function () {
-        console.log($(this));
-        $(this).attr("class", "btn btn-danger").attr("id", "remFavBtn").html("&times;Remove");
+        $("#favBtn").attr("class", "btn btn-danger").attr("id", "remFavBtn").html("&times;Remove");
     }, 500);
 
 });
@@ -113,6 +115,7 @@ $(document).on("click", "#favBtn", function () {
 $(document).on("click", "#remFavBtn", function () {
     console.log($(this).attr("id"));
     $(this).attr("class", "btn btn-primary").attr("id", "favBtn").html("✩Favorites");
+    // $("#favSymbol").remove();
 });
 
 $(document).on("click", ".gif", function () {

@@ -15,3 +15,11 @@ button{
     width: 50%;
     margin: 1%, 25%;
 } */
+
+.rightColumn{
+    text-align: right;
+}
+
+#favoritesTab{
+    margin: 1% 0 1% 1%;
+}
