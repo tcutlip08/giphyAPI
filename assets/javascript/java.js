@@ -35,7 +35,7 @@ $(document).on("click", ".gifButton", function () {
     var gif = $(this).attr("data-name");
     console.log(gif);
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        gif + "&api_key=TI0kxI9vVsmT8MAq2r6BCEoVozy5t7xz&limit=1";
+        gif + "&api_key=TI0kxI9vVsmT8MAq2r6BCEoVozy5t7xz&limit=10";
 
     $.ajax({
         url: queryURL,
@@ -57,10 +57,11 @@ $(document).on("click", ".gifButton", function () {
                 //                 </div>
                 var gifDiv = $("<div>");
                 gifDiv.addClass("card w-75 text-center");
+                // gifDiv.attr("style", "margin: 1%, 0;");
 
                 var rating = results[i].rating;
 
-                var p = $("<h5>").text("Rating: " + rating);
+                var p = $("<h5>").html("Rating: " + rating);
 
                 var gifImage = $("<img>");
                 gifImage.addClass("gif");
@@ -87,20 +88,25 @@ $(document).on("click", ".gifButton", function () {
                 gifDiv.prepend(imageDetail);
                 gifDiv.prepend(gifImage);
 
+                // var br = $("<br>");
+                $("#displayGifs").prepend("<br>")
                 $("#displayGifs").prepend(gifDiv);
+
+                // var br = $("<br>");
+                // $("#card").prepend(br);
             }
         });
 });
 
 $(document).on("click", "#favBtn", function () {
 
-    $(this).attr("class", "btn btn-success").html("Gif Saved");
+    // $(this).attr("class", "btn btn-success").html("Gif Saved");
 
     // $(this, ".gifTitle").prepend('<span id="favSymbol">✩</span>');
 
-    setTimeout(function () {
+    // setTimeout(function () {
         $("#favBtn").attr("class", "btn btn-danger").attr("id", "remFavBtn").html("&times;Remove");
-    }, 500);
+    // }, 500);
 
 });
 
@@ -113,7 +119,7 @@ $(document).on("click", "#favBtn", function () {
 // }
 
 $(document).on("click", "#remFavBtn", function () {
-    console.log($(this).attr("id"));
+    // console.log($(this).attr("id"));
     $(this).attr("class", "btn btn-primary").attr("id", "favBtn").html("✩Favorites");
     // $("#favSymbol").remove();
 });
